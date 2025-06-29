@@ -1,5 +1,5 @@
-import { encodeBase64 } from "jsr:@std/encoding/base64";
-import { crypto } from "jsr:@std/crypto/crypto";
+import { encodeBase64 } from "jsr:@std/encoding@^1.0.10/base64";
+import { crypto } from "jsr:@std/crypto@^1.0.5/crypto";
 
 /** The PLAINTEXT signature method. */
 export const PLAINTEXT = {

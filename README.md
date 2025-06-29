@@ -1,16 +1,17 @@
 # OAuth 1.0a Request Authorization for Deno
 
-[![Test Status][test-badge]][test-url]
+[![Test Status][test-badge]][test-url] [![JSR][jsr-badge]][jsr-url]
 
-OAuth 1.0a Request Authorization module for Deno. [Documentation][doc].
+OAuth 1.0a Request Authorization module for Deno with JSR and std packages support. This is an updated fork with modern Deno ecosystem integration.
 
 - [Usage](#usage)
 - [Test](#test)
 - [License](#license)
 
-[test-badge]: https://github.com/snsinfu/deno-oauth-1.0a/workflows/test/badge.svg
-[test-url]: https://github.com/snsinfu/deno-oauth-1.0a/actions?query=workflow%3Atest
-[doc]: https://doc.deno.land/https/raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/mod.ts
+[test-badge]: https://github.com/andreivarapayeu/deno-oauth-1.0a/workflows/test/badge.svg
+[test-url]: https://github.com/andreivarapayeu/deno-oauth-1.0a/actions?query=workflow%3Atest
+[jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth_1_0a
+[jsr-url]: https://jsr.io/@andreivarapayeu/oauth_1_0a
 
 ## Usage
 
@@ -19,7 +20,7 @@ and token credentials. You get an `Authorization` header that can be added to an
 actual request.
 
 ```typescript
-import * as oauth from "https://raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/mod.ts";
+import * as oauth from "jsr:@andreivarapayeu/oauth_1_0a";
 
 const client = new oauth.OAuthClient({
   consumer: {
@@ -44,38 +45,14 @@ const auth = oauth.toAuthHeader(client.sign(
 console.log("Authorization:", auth);
 ```
 
-[doc-OAuthClient]: https://doc.deno.land/https/raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/mod.ts#OAuthClient
-
-### High-level API
-
-An experimental, high-level module is available in the [extra](./extra)
-directory. [Documentation][doc-extra]. Basic usage:
-
-```typescript
-import * as oauth from "https://raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/extra/mod.ts";
-
-const api = new oauth.Api({
-  prefix: "https://api.example.com/v1",
-  consumer: { key: "app-key", secret: "app-secret" },
-  signature: oauth.HMAC_SHA1,
-});
-
-const response = await api.request("POST", "/review", {
-  token: { key: "user-key", secret: "user-secret" },
-  json: { book: "c3c24bab", score: 5 },
-  hashBody: true,
-});
-const result = await response.json();
-```
-
-[doc-extra]: https://doc.deno.land/https/raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/extra/mod.ts
+[doc-OAuthClient]: https://jsr.io/@andreivarapayeu/oauth_1_0a/doc/~/OAuthClient
 
 ## Test
 
 ```console
-$ git clone https://github.com/snsinfu/deno-oauth-1.0a
+$ git clone https://github.com/andreivarapayeu/deno-oauth-1.0a
 $ cd deno-oauth-1.0a
-$ deno test --allow-net=localhost
+$ deno test --allow-all
 ```
 
 ## License
