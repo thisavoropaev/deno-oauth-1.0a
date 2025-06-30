@@ -2,16 +2,17 @@
 
 [![Test Status][test-badge]][test-url] [![JSR][jsr-badge]][jsr-url]
 
-OAuth 1.0a Request Authorization module for Deno with JSR and std packages support. This is an updated fork with modern Deno ecosystem integration.
+OAuth 1.0a Request Authorization module for Deno with JSR and std packages
+support. This is an updated fork with modern Deno ecosystem integration.
 
 - [Usage](#usage)
 - [Test](#test)
 - [License](#license)
 
-[test-badge]: https://github.com/andreivarapayeu/deno-oauth-1.0a/workflows/test/badge.svg
-[test-url]: https://github.com/andreivarapayeu/deno-oauth-1.0a/actions?query=workflow%3Atest
-[jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth_1_0a
-[jsr-url]: https://jsr.io/@andreivarapayeu/oauth_1_0a
+[test-badge]: https://github.com/andreivarapayeu/deno-oauth-one-a/workflows/test/badge.svg
+[test-url]: https://github.com/andreivarapayeu/deno-oauth-one-a/actions?query=workflow%3Atest
+[jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth-one-a
+[jsr-url]: https://jsr.io/@andreivarapayeu/oauth-one-a
 
 ## Usage
 
@@ -20,7 +21,7 @@ and token credentials. You get an `Authorization` header that can be added to an
 actual request.
 
 ```typescript
-import * as oauth from "jsr:@andreivarapayeu/oauth_1_0a";
+import * as oauth from "jsr:@andreivarapayeu/oauth-one-a";
 
 const client = new oauth.OAuthClient({
   consumer: {
@@ -45,13 +46,13 @@ const auth = oauth.toAuthHeader(client.sign(
 console.log("Authorization:", auth);
 ```
 
-[doc-OAuthClient]: https://jsr.io/@andreivarapayeu/oauth_1_0a/doc/~/OAuthClient
+[doc-OAuthClient]: https://jsr.io/@andreivarapayeu/oauth-one-a/doc/~/OAuthClient
 
 ## Test
 
 ```console
-$ git clone https://github.com/andreivarapayeu/deno-oauth-1.0a
-$ cd deno-oauth-1.0a
+$ git clone https://github.com/andreivarapayeu/deno-oauth-one-a
+$ cd deno-oauth-one-a
 $ deno test --allow-all
 ```
 
@@ -64,4 +65,4 @@ and many of the tests are inherited from the original work, a copy of which is
 kept in the ["original" branch][original].
 
 [ddo]: https://github.com/ddo/oauth-1.0a
-[original]: https://github.com/snsinfu/deno-oauth-1.0a/tree/original
+[original]: https://github.com/snsinfu/deno-oauth-one-a/tree/original

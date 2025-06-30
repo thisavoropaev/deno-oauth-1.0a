@@ -1,10 +1,10 @@
-import { encodeBase64 } from "jsr:@std/encoding@^1.0.10/base64";
-import { crypto } from "jsr:@std/crypto@^1.0.5/crypto";
+import { encodeBase64 } from "@std/encoding/base64";
+import { crypto } from "@std/crypto/crypto";
 
 /** The PLAINTEXT signature method. */
 export const PLAINTEXT = {
   name: "PLAINTEXT",
-  sign: async (message: string, key: string): Promise<string> => key,
+  sign: (_message: string, key: string): Promise<string> => Promise.resolve(key),
 };
 
 /** The HMAC-SHA1 signature method. */
@@ -19,7 +19,7 @@ export const HMAC_SHA1 = {
       keyData,
       { name: "HMAC", hash: "SHA-1" },
       false,
-      ["sign"]
+      ["sign"],
     );
     const signature = await crypto.subtle.sign("HMAC", cryptoKey, messageData);
     return encodeBase64(signature);
@@ -44,7 +44,7 @@ export const HMAC_SHA256 = {
       keyData,
       { name: "HMAC", hash: "SHA-256" },
       false,
-      ["sign"]
+      ["sign"],
     );
     const signature = await crypto.subtle.sign("HMAC", cryptoKey, messageData);
     return encodeBase64(signature);

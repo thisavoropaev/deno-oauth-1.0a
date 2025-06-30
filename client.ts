@@ -56,7 +56,11 @@ export class OAuthClient {
    *    The result can be converted to an Authorization header (toAuthHeader),
    *    query parameters or form-encoded body (toQueryParams).
    */
-  async sign(method: string, url: string, opts?: SignOptions): Promise<SignedOAuthParams> {
+  async sign(
+    method: string,
+    url: string,
+    opts?: SignOptions,
+  ): Promise<SignedOAuthParams> {
     const params: OAuthParams = {
       oauth_consumer_key: this.consumer.key,
       oauth_signature_method: this.signature.name,
@@ -300,7 +304,7 @@ export function createBaseParams(
   body?: URLSearchParams,
 ): KV[] {
   const paramsKV = Object.entries(params).map(
-    ([key, value]: [string, any]) => ({ key, value: value.toString() }),
+    ([key, value]: [string, string | number | boolean | undefined]) => ({ key, value: value?.toString() ?? "" }),
   );
 
   const queryKV = !query ? [] : Array.from(query.entries()).map(
