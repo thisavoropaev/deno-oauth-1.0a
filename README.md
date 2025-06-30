@@ -25,8 +25,8 @@ support. This is an updated fork with modern Deno ecosystem integration.
 - [Release process](#release-process)
 - [License](#license)
 
-[test-badge]: https://github.com/thisavoropaev/deno-oauth-one-a/actions/workflows/test.yml/badge.svg
-[test-url]: https://github.com/thisavoropaev/deno-oauth-one-a/actions/workflows/test.yml
+[test-badge]: https://github.com/thisavoropaev/deno-oauth-1.0a/actions/workflows/test.yml/badge.svg
+[test-url]: https://github.com/thisavoropaev/deno-oauth-1.0a/actions/workflows/test.yml
 [jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth-one-a
 [jsr-url]: https://jsr.io/@andreivarapayeu/oauth-one-a
 
