@@ -1,32 +1,33 @@
-# OAuth 1.0a Request Authorization for Deno
+# Lightweight OAuth 1.0a Client for Edge Runtimes and Serverless
 
----
-**About this fork**
+[test-badge]: https://github.com/thisavoropaev/oauth-1.0a/actions/workflows/test.yml/badge.svg
+[test-url]: https://github.com/thisavoropaev/oauth-1.0a/actions/workflows/test.yml
+[jsr-badge]: https://jsr.io/badges/@thisavoropaev/oauth-1a
+[jsr-url]: https://jsr.io/@thisavoropaev/oauth-1a
+
+[![CI][test-badge]][test-url] [![JSR][jsr-badge]][jsr-url]
+
 Maintained by [Andrei Varapayeu](https://github.com/thisavoropaev)
 
-This is not just a fork, but a modernized, maintained, and published version:
+**Edge & Cloud Ready:**
+This library is fully compatible with:
+- **Vercel Edge Functions**
+- **Cloudflare Workers**
+- **Deno Deploy**
+- **Node.js**
+
+It is designed to run in modern, standards-compliant JavaScript runtimes, including edge/serverless platforms. No Node.js built-ins or legacy APIs are required. Works out of the box for edge-native use cases (fetch, crypto, URL, etc.).
+
+
+**About This Project**
+
+More than just a fork, this is a modernized, actively maintained, and officially published version with the following improvements:
 - Uses [JSR](https://jsr.io) packages instead of legacy `https` imports
 - All tests updated and fixed for reliability
 - Fully migrated to and tested on **Deno 2.x**
 - Published on [JSR](https://jsr.io/@thisavoropaev/oauth-1a)
 
 Feel free to reach out via [GitHub](https://github.com/thisavoropaev) for any questions or suggestions.
----
-
-[![CI][test-badge]][test-url] [![JSR][jsr-badge]][jsr-url]
-
-OAuth 1.0a Request Authorization module for Deno with JSR and std packages
-support. This is an updated fork with modern Deno ecosystem integration.
-
-- [Usage](#usage)
-- [Test](#test)
-- [Release process](#release-process)
-- [License](#license)
-
-[test-badge]: https://github.com/thisavoropaev/oauth-1.0a/actions/workflows/test.yml/badge.svg
-[test-url]: https://github.com/thisavoropaev/oauth-1.0a/actions/workflows/test.yml
-[jsr-badge]: https://jsr.io/badges/@thisavoropaev/oauth-1a
-[jsr-url]: https://jsr.io/@thisavoropaev/oauth-1a
 
 ## Usage
 
@@ -35,7 +36,7 @@ and token credentials. You get an `Authorization` header that can be added to an
 actual request.
 
 ```typescript
-import * as oauth from "jsr:@andreivarapayeu/oauth-1a";
+import * as oauth from "jsr:@thisavoropaev/oauth-1a";
 
 const client = new oauth.OAuthClient({
   consumer: {
@@ -65,8 +66,8 @@ console.log("Authorization:", auth);
 ## Test
 
 ```console
-$ git clone https://github.com/andreivarapayeu/deno-oauth-1a
-$ cd deno-oauth-1a
+$ git clone https://github.com/thisavoropaev/deno-oauth-1a
+$ cd oauth-1.0a
 $ deno test --allow-all
 ```
 
@@ -74,23 +75,25 @@ $ deno test --allow-all
 
 To publish a new version to JSR and GitHub Releases:
 
-1. Make sure your changes are pushed to the `main` branch and CI passes (tests,
-   lint, fmt).
-2. Update the `version` field in `deno.json` (e.g., `1.2.3`).
-3. (Optionally) Update `CHANGELOG.md` with release notes.
-4. Create a git tag matching the new version (e.g., `v1.2.3`):
+1. Make sure all changes are merged into the `main` branch and that CI passes
+   (tests, lint, formatting).
+2. Update the `version` field in `deno.json` (for example, `1.2.3`).
+3. (Optional) Update `CHANGELOG.md` with release notes.
+4. Create a git tag that matches the new version (for example, `v1.2.3`):
    ```sh
    git tag v1.2.3
    git push origin v1.2.3
    ```
-5. The release workflow will:
-   - Ensure the latest CI on `main` is green
-   - Run checks again
-   - Publish the package to [JSR](https://jsr.io/@thisavoropaev/oauth-1a)
-   - Create a GitHub Release with this tag
+5. After pushing the tag, the release workflow will automatically:
+   - Check formatting, lint, and run tests
+   - Verify that the tag version matches the version in `deno.json`
+   - Publish the package to [JSR](https://jsr.io/@thisavoropaev/oauth-1a) using
+     OIDC (no token required)
+   - Create a GitHub Release for this tag
 
-**Note:** No automatic release or publication happens on push to `main` — only
-when you push a new tag.
+**Important:** Publishing only happens when you push a new tag that matches the
+version in `deno.json`. Pushing to `main` does not trigger a release
+automatically.
 
 ## License
 
