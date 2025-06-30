@@ -304,7 +304,10 @@ export function createBaseParams(
   body?: URLSearchParams,
 ): KV[] {
   const paramsKV = Object.entries(params).map(
-    ([key, value]: [string, string | number | boolean | undefined]) => ({ key, value: value?.toString() ?? "" }),
+    ([key, value]: [string, string | number | boolean | undefined]) => ({
+      key,
+      value: value?.toString() ?? "",
+    }),
   );
 
   const queryKV = !query ? [] : Array.from(query.entries()).map(

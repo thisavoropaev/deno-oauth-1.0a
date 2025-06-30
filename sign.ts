@@ -4,7 +4,8 @@ import { crypto } from "@std/crypto/crypto";
 /** The PLAINTEXT signature method. */
 export const PLAINTEXT = {
   name: "PLAINTEXT",
-  sign: (_message: string, key: string): Promise<string> => Promise.resolve(key),
+  sign: (_message: string, key: string): Promise<string> =>
+    Promise.resolve(key),
 };
 
 /** The HMAC-SHA1 signature method. */

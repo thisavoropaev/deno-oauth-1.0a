@@ -1,11 +1,11 @@
 {
-  "name": "@andreivarapayeu/deno-oauth-one-a",
+  "name": "@thisavoropaev/oauth-1a",
   "version": "1.0.0",
   "description": "OAuth 1.0a Request Authorization for Deno with JSR and std packages support",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andreivarapayeu/deno-oauth-1.0a.git"
+    "url": "git+https://github.com/thisavoropaev/oauth-1.0a.git"
   },
   "exports": "./mod.ts",
   "compilerOptions": {

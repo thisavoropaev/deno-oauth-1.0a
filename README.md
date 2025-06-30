@@ -1,7 +1,7 @@
 # OAuth 1.0a Request Authorization for Deno
 
 ---
-**About this fork**  
+**About this fork**
 Maintained by [Andrei Varapayeu](https://github.com/thisavoropaev)
 
 This is not just a fork, but a modernized, maintained, and published version:
@@ -13,9 +13,7 @@ This is not just a fork, but a modernized, maintained, and published version:
 Feel free to reach out via [GitHub](https://github.com/thisavoropaev) for any questions or suggestions.
 ---
 
-
-[![CI][test-badge]][test-url]
-[![JSR][jsr-badge]][jsr-url]
+[![CI][test-badge]][test-url] [![JSR][jsr-badge]][jsr-url]
 
 OAuth 1.0a Request Authorization module for Deno with JSR and std packages
 support. This is an updated fork with modern Deno ecosystem integration.
@@ -76,7 +74,8 @@ $ deno test --allow-all
 
 To publish a new version to JSR and GitHub Releases:
 
-1. Make sure your changes are pushed to the `main` branch and CI passes (tests, lint, fmt).
+1. Make sure your changes are pushed to the `main` branch and CI passes (tests,
+   lint, fmt).
 2. Update the `version` field in `deno.json` (e.g., `1.2.3`).
 3. (Optionally) Update `CHANGELOG.md` with release notes.
 4. Create a git tag matching the new version (e.g., `v1.2.3`):
@@ -90,7 +89,8 @@ To publish a new version to JSR and GitHub Releases:
    - Publish the package to [JSR](https://jsr.io/@thisavoropaev/oauth-1a)
    - Create a GitHub Release with this tag
 
-**Note:** No automatic release or publication happens on push to `main` — only when you push a new tag.
+**Note:** No automatic release or publication happens on push to `main` — only
+when you push a new tag.
 
 ## License
 
