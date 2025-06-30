@@ -9,25 +9,49 @@
 
 Maintained by [Andrei Varapayeu](https://github.com/thisavoropaev)
 
-**Edge & Cloud Ready:**
-This library is fully compatible with:
+**Edge & Cloud Ready:** This library is fully compatible with:
+
 - **Vercel Edge Functions**
 - **Cloudflare Workers**
 - **Deno Deploy**
 - **Node.js**
 
-It is designed to run in modern, standards-compliant JavaScript runtimes, including edge/serverless platforms. No Node.js built-ins or legacy APIs are required. Works out of the box for edge-native use cases (fetch, crypto, URL, etc.).
-
+It is designed to run in modern, standards-compliant JavaScript runtimes,
+including edge/serverless platforms. No Node.js built-ins or legacy APIs are
+required. Works out of the box for edge-native use cases (fetch, crypto, URL,
+etc.).
 
 **About This Project**
 
-More than just a fork, this is a modernized, actively maintained, and officially published version with the following improvements:
+More than just a fork, this is a modernized, actively maintained, and officially
+published version with the following improvements:
+
 - Uses [JSR](https://jsr.io) packages instead of legacy `https` imports
 - All tests updated and fixed for reliability
 - Fully migrated to and tested on **Deno 2.x**
 - Published on [JSR](https://jsr.io/@thisavoropaev/oauth-1a)
 
-Feel free to reach out via [GitHub](https://github.com/thisavoropaev) for any questions or suggestions.
+Feel free to reach out via [GitHub](https://github.com/thisavoropaev) for any
+questions or suggestions.
+
+## Local Development: Pre-push Checks
+
+This repository includes a local git pre-push hook to help ensure code quality.
+Before every push, the following will run automatically:
+
+- `deno fmt` (formatting)
+- `deno lint` (linting)
+- `deno test --allow-all` (tests)
+
+If any check fails, the push will be blocked.
+
+To enable the pre-push hook after cloning or pulling:
+
+```sh
+sh setup-git-hooks.sh
+```
+
+This will symlink the hook from `.githooks/pre-push` to `.git/hooks/pre-push`.
 
 ## Usage
 

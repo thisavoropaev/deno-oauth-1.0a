@@ -1,0 +1,22 @@
+#!/bin/sh
+
+denofmt() {
+  deno fmt
+}
+
+denofmtcheck() {
+  deno fmt --check
+}
+
+denolint() {
+  deno lint
+}
+
+denotest() {
+  deno test --allow-all
+}
+
+denofmt || exit 1
+denofmtcheck || exit 1
+denolint || exit 1
+denotest || exit 1
