@@ -1,11 +1,8 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@std/assert@*": "1.0.13",
     "jsr:@std/assert@^1.0.13": "1.0.13",
-    "jsr:@std/crypto@*": "1.0.5",
     "jsr:@std/crypto@^1.0.5": "1.0.5",
-    "jsr:@std/encoding@*": "1.0.10",
     "jsr:@std/encoding@^1.0.10": "1.0.10",
     "jsr:@std/internal@^1.0.6": "1.0.8"
   },
