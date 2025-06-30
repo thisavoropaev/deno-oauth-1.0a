@@ -1,18 +1,54 @@
 # OAuth 1.0a Request Authorization for Deno
 
-[![Test Status][test-badge]][test-url] [![JSR][jsr-badge]][jsr-url]
+---
+**About this fork**  
+Maintained by [Andrei Varapayeu](https://github.com/andreivarapayeu)
+
+This is not just a fork, but a modernized, maintained, and published version:
+- Uses [JSR](https://jsr.io) packages instead of legacy `https` imports
+- All tests updated and fixed for reliability
+- Fully migrated to and tested on **Deno 2.x**
+- Published on [JSR](https://jsr.io/@andreivarapayeu/oauth-one-a)
+
+Feel free to reach out via [GitHub](https://github.com/andreivarapayeu) for any questions or suggestions.
+---
+
+
+[![CI](https://github.com/andreivarapayeu/deno-oauth-one-a/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/andreivarapayeu/deno-oauth-one-a/actions/workflows/test.yml)
+[![Published on JSR](https://jsr.io/badge/@andreivarapayeu/oauth-one-a)](https://jsr.io/@andreivarapayeu/oauth-one-a)
 
 OAuth 1.0a Request Authorization module for Deno with JSR and std packages
 support. This is an updated fork with modern Deno ecosystem integration.
 
 - [Usage](#usage)
 - [Test](#test)
+- [Release process](#release-process)
 - [License](#license)
 
 [test-badge]: https://github.com/andreivarapayeu/deno-oauth-one-a/workflows/test/badge.svg
 [test-url]: https://github.com/andreivarapayeu/deno-oauth-one-a/actions?query=workflow%3Atest
 [jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth-one-a
 [jsr-url]: https://jsr.io/@andreivarapayeu/oauth-one-a
+
+## Release process
+
+To publish a new version to JSR and GitHub Releases:
+
+1. Make sure your changes are pushed to the `main` branch and CI passes (tests, lint, fmt).
+2. Update the `version` field in `deno.json` (e.g., `1.2.3`).
+3. (Optionally) Update `CHANGELOG.md` with release notes.
+4. Create a git tag matching the new version (e.g., `v1.2.3`):
+   ```sh
+   git tag v1.2.3
+   git push origin v1.2.3
+   ```
+5. The release workflow will:
+   - Ensure the latest CI on `main` is green
+   - Run checks again
+   - Publish the package to [JSR](https://jsr.io/@andreivarapayeu/oauth-one-a)
+   - Create a GitHub Release with this tag
+
+**Note:** No automatic release or publication happens on push to `main` — only when you push a new tag.
 
 ## Usage
 
