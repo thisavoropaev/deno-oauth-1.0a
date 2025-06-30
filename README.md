@@ -8,7 +8,7 @@ This is not just a fork, but a modernized, maintained, and published version:
 - Uses [JSR](https://jsr.io) packages instead of legacy `https` imports
 - All tests updated and fixed for reliability
 - Fully migrated to and tested on **Deno 2.x**
-- Published on [JSR](https://jsr.io/@andreivarapayeu/oauth-one-a)
+- Published on [JSR](https://jsr.io/@thisavoropaev/oauth-1a)
 
 Feel free to reach out via [GitHub](https://github.com/thisavoropaev) for any questions or suggestions.
 ---
@@ -25,30 +25,10 @@ support. This is an updated fork with modern Deno ecosystem integration.
 - [Release process](#release-process)
 - [License](#license)
 
-[test-badge]: https://github.com/thisavoropaev/deno-oauth-1.0a/actions/workflows/test.yml/badge.svg
-[test-url]: https://github.com/thisavoropaev/deno-oauth-1.0a/actions/workflows/test.yml
-[jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth-one-a
-[jsr-url]: https://jsr.io/@andreivarapayeu/oauth-one-a
-
-## Release process
-
-To publish a new version to JSR and GitHub Releases:
-
-1. Make sure your changes are pushed to the `main` branch and CI passes (tests, lint, fmt).
-2. Update the `version` field in `deno.json` (e.g., `1.2.3`).
-3. (Optionally) Update `CHANGELOG.md` with release notes.
-4. Create a git tag matching the new version (e.g., `v1.2.3`):
-   ```sh
-   git tag v1.2.3
-   git push origin v1.2.3
-   ```
-5. The release workflow will:
-   - Ensure the latest CI on `main` is green
-   - Run checks again
-   - Publish the package to [JSR](https://jsr.io/@andreivarapayeu/oauth-one-a)
-   - Create a GitHub Release with this tag
-
-**Note:** No automatic release or publication happens on push to `main` — only when you push a new tag.
+[test-badge]: https://github.com/thisavoropaev/oauth-1.0a/actions/workflows/test.yml/badge.svg
+[test-url]: https://github.com/thisavoropaev/oauth-1.0a/actions/workflows/test.yml
+[jsr-badge]: https://jsr.io/badges/@thisavoropaev/oauth-1a
+[jsr-url]: https://jsr.io/@thisavoropaev/oauth-1a
 
 ## Usage
 
@@ -57,7 +37,7 @@ and token credentials. You get an `Authorization` header that can be added to an
 actual request.
 
 ```typescript
-import * as oauth from "jsr:@andreivarapayeu/oauth-one-a";
+import * as oauth from "jsr:@andreivarapayeu/oauth-1a";
 
 const client = new oauth.OAuthClient({
   consumer: {
@@ -82,15 +62,35 @@ const auth = oauth.toAuthHeader(client.sign(
 console.log("Authorization:", auth);
 ```
 
-[doc-OAuthClient]: https://jsr.io/@andreivarapayeu/oauth-one-a/doc/~/OAuthClient
+[doc-OAuthClient]: https://jsr.io/@thisavoropaev/oauth-1a/doc/~/OAuthClient
 
 ## Test
 
 ```console
-$ git clone https://github.com/andreivarapayeu/deno-oauth-one-a
-$ cd deno-oauth-one-a
+$ git clone https://github.com/andreivarapayeu/deno-oauth-1a
+$ cd deno-oauth-1a
 $ deno test --allow-all
 ```
+
+## Release process
+
+To publish a new version to JSR and GitHub Releases:
+
+1. Make sure your changes are pushed to the `main` branch and CI passes (tests, lint, fmt).
+2. Update the `version` field in `deno.json` (e.g., `1.2.3`).
+3. (Optionally) Update `CHANGELOG.md` with release notes.
+4. Create a git tag matching the new version (e.g., `v1.2.3`):
+   ```sh
+   git tag v1.2.3
+   git push origin v1.2.3
+   ```
+5. The release workflow will:
+   - Ensure the latest CI on `main` is green
+   - Run checks again
+   - Publish the package to [JSR](https://jsr.io/@thisavoropaev/oauth-1a)
+   - Create a GitHub Release with this tag
+
+**Note:** No automatic release or publication happens on push to `main` — only when you push a new tag.
 
 ## License
 
@@ -101,4 +101,4 @@ and many of the tests are inherited from the original work, a copy of which is
 kept in the ["original" branch][original].
 
 [ddo]: https://github.com/ddo/oauth-1.0a
-[original]: https://github.com/snsinfu/deno-oauth-one-a/tree/original
+[original]: https://github.com/snsinfu/deno-oauth-1a/tree/original
