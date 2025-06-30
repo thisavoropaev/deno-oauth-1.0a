@@ -1,27 +1,34 @@
-import * as base64 from "https://deno.land/std@0.91.0/encoding/base64.ts";
-import * as sha1 from "https://deno.land/std@0.91.0/hash/sha1.ts";
-import * as sha256 from "https://deno.land/std@0.91.0/hash/sha256.ts";
+import { encodeBase64 } from "@std/encoding/base64";
+import { crypto } from "@std/crypto/crypto";
 
 /** The PLAINTEXT signature method. */
 export const PLAINTEXT = {
   name: "PLAINTEXT",
-  sign: (message: string, key: string): string => key,
+  sign: (_message: string, key: string): Promise<string> => Promise.resolve(key),
 };
 
 /** The HMAC-SHA1 signature method. */
 export const HMAC_SHA1 = {
   name: "HMAC-SHA1",
 
-  sign: (message: string, key: string): string => {
-    const hmac = new sha1.HmacSha1(key);
-    hmac.update(message);
-    return base64.encode(hmac.arrayBuffer());
+  sign: async (message: string, key: string): Promise<string> => {
+    const keyData = new TextEncoder().encode(key || "\0");
+    const messageData = new TextEncoder().encode(message);
+    const cryptoKey = await crypto.subtle.importKey(
+      "raw",
+      keyData,
+      { name: "HMAC", hash: "SHA-1" },
+      false,
+      ["sign"],
+    );
+    const signature = await crypto.subtle.sign("HMAC", cryptoKey, messageData);
+    return encodeBase64(signature);
   },
 
-  hash: (message: string): string => {
-    const hash = new sha1.Sha1();
-    hash.update(message);
-    return base64.encode(hash.arrayBuffer());
+  hash: async (message: string): Promise<string> => {
+    const messageData = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest("SHA-1", messageData);
+    return encodeBase64(hashBuffer);
   },
 };
 
@@ -29,15 +36,23 @@ export const HMAC_SHA1 = {
 export const HMAC_SHA256 = {
   name: "HMAC-SHA256",
 
-  sign: (message: string, key: string): string => {
-    const hmac = new sha256.HmacSha256(key);
-    hmac.update(message);
-    return base64.encode(hmac.arrayBuffer());
+  sign: async (message: string, key: string): Promise<string> => {
+    const keyData = new TextEncoder().encode(key || "\0");
+    const messageData = new TextEncoder().encode(message);
+    const cryptoKey = await crypto.subtle.importKey(
+      "raw",
+      keyData,
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"],
+    );
+    const signature = await crypto.subtle.sign("HMAC", cryptoKey, messageData);
+    return encodeBase64(signature);
   },
 
-  hash: (message: string): string => {
-    const hash = new sha256.Sha256();
-    hash.update(message);
-    return base64.encode(hash.arrayBuffer());
+  hash: async (message: string): Promise<string> => {
+    const messageData = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", messageData);
+    return encodeBase64(hashBuffer);
   },
 };

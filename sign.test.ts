@@ -7,9 +7,9 @@ Deno.test("PLAINTEXT.name - is correct", () => {
   assertEquals(PLAINTEXT.name, "PLAINTEXT");
 });
 
-Deno.test("PLAINTEXT.sign - just returns key", () => {
-  assertEquals(PLAINTEXT.sign("message", ""), "");
-  assertEquals(PLAINTEXT.sign("message", "key"), "key");
+Deno.test("PLAINTEXT.sign - just returns key", async () => {
+  assertEquals(await PLAINTEXT.sign("message", ""), "");
+  assertEquals(await PLAINTEXT.sign("message", "key"), "key");
 });
 
 // HMAC_SHA1 -----------------------------------------------------------------
@@ -18,7 +18,7 @@ Deno.test("HMAC_SHA1.name - is correct", () => {
   assertEquals(HMAC_SHA1.name, "HMAC-SHA1");
 });
 
-Deno.test("HMAC_SHA1.sign - returns correct signature", () => {
+Deno.test("HMAC_SHA1.sign - returns correct signature", async () => {
   // echo -n message | openssl dgst -binary -sha1 -hmac key | base64
   const examples = [
     {
@@ -39,11 +39,11 @@ Deno.test("HMAC_SHA1.sign - returns correct signature", () => {
   ];
 
   for (const { message, key, signature } of examples) {
-    assertEquals(HMAC_SHA1.sign(message, key), signature);
+    assertEquals(await HMAC_SHA1.sign(message, key), signature);
   }
 });
 
-Deno.test("HMAC_SHA1.hash - returns correct hash", () => {
+Deno.test("HMAC_SHA1.hash - returns correct hash", async () => {
   // echo -n message | openssl dgst -binary -sha1 | base64
   const examples = [
     {
@@ -57,7 +57,7 @@ Deno.test("HMAC_SHA1.hash - returns correct hash", () => {
   ];
 
   for (const { message, hash } of examples) {
-    assertEquals(HMAC_SHA1.hash(message), hash);
+    assertEquals(await HMAC_SHA1.hash(message), hash);
   }
 });
 
@@ -67,7 +67,7 @@ Deno.test("HMAC_SHA256.name - is correct", () => {
   assertEquals(HMAC_SHA256.name, "HMAC-SHA256");
 });
 
-Deno.test("HMAC_SHA256.sign - returns correct signature", () => {
+Deno.test("HMAC_SHA256.sign - returns correct signature", async () => {
   // echo -n message | openssl dgst -binary -sha256 -hmac key | base64
   const examples = [
     {
@@ -88,11 +88,11 @@ Deno.test("HMAC_SHA256.sign - returns correct signature", () => {
   ];
 
   for (const { message, key, signature } of examples) {
-    assertEquals(HMAC_SHA256.sign(message, key), signature);
+    assertEquals(await HMAC_SHA256.sign(message, key), signature);
   }
 });
 
-Deno.test("HMAC_SHA256.hash - returns correct hash", () => {
+Deno.test("HMAC_SHA256.hash - returns correct hash", async () => {
   // echo -n message | openssl dgst -binary -sha256 | base64
   const examples = [
     {
@@ -106,6 +106,6 @@ Deno.test("HMAC_SHA256.hash - returns correct hash", () => {
   ];
 
   for (const { message, hash } of examples) {
-    assertEquals(HMAC_SHA256.hash(message), hash);
+    assertEquals(await HMAC_SHA256.hash(message), hash);
   }
 });

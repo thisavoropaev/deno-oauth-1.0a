@@ -1,16 +1,54 @@
 # OAuth 1.0a Request Authorization for Deno
 
-[![Test Status][test-badge]][test-url]
+---
+**About this fork**  
+Maintained by [Andrei Varapayeu](https://github.com/andreivarapayeu)
 
-OAuth 1.0a Request Authorization module for Deno. [Documentation][doc].
+This is not just a fork, but a modernized, maintained, and published version:
+- Uses [JSR](https://jsr.io) packages instead of legacy `https` imports
+- All tests updated and fixed for reliability
+- Fully migrated to and tested on **Deno 2.x**
+- Published on [JSR](https://jsr.io/@andreivarapayeu/oauth-one-a)
+
+Feel free to reach out via [GitHub](https://github.com/andreivarapayeu) for any questions or suggestions.
+---
+
+
+[![CI](https://github.com/andreivarapayeu/deno-oauth-one-a/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/andreivarapayeu/deno-oauth-one-a/actions/workflows/test.yml)
+[![Published on JSR](https://jsr.io/badge/@andreivarapayeu/oauth-one-a)](https://jsr.io/@andreivarapayeu/oauth-one-a)
+
+OAuth 1.0a Request Authorization module for Deno with JSR and std packages
+support. This is an updated fork with modern Deno ecosystem integration.
 
 - [Usage](#usage)
 - [Test](#test)
+- [Release process](#release-process)
 - [License](#license)
 
-[test-badge]: https://github.com/snsinfu/deno-oauth-1.0a/workflows/test/badge.svg
-[test-url]: https://github.com/snsinfu/deno-oauth-1.0a/actions?query=workflow%3Atest
-[doc]: https://doc.deno.land/https/raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/mod.ts
+[test-badge]: https://github.com/andreivarapayeu/deno-oauth-one-a/workflows/test/badge.svg
+[test-url]: https://github.com/andreivarapayeu/deno-oauth-one-a/actions?query=workflow%3Atest
+[jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth-one-a
+[jsr-url]: https://jsr.io/@andreivarapayeu/oauth-one-a
+
+## Release process
+
+To publish a new version to JSR and GitHub Releases:
+
+1. Make sure your changes are pushed to the `main` branch and CI passes (tests, lint, fmt).
+2. Update the `version` field in `deno.json` (e.g., `1.2.3`).
+3. (Optionally) Update `CHANGELOG.md` with release notes.
+4. Create a git tag matching the new version (e.g., `v1.2.3`):
+   ```sh
+   git tag v1.2.3
+   git push origin v1.2.3
+   ```
+5. The release workflow will:
+   - Ensure the latest CI on `main` is green
+   - Run checks again
+   - Publish the package to [JSR](https://jsr.io/@andreivarapayeu/oauth-one-a)
+   - Create a GitHub Release with this tag
+
+**Note:** No automatic release or publication happens on push to `main` — only when you push a new tag.
 
 ## Usage
 
@@ -19,7 +57,7 @@ and token credentials. You get an `Authorization` header that can be added to an
 actual request.
 
 ```typescript
-import * as oauth from "https://raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/mod.ts";
+import * as oauth from "jsr:@andreivarapayeu/oauth-one-a";
 
 const client = new oauth.OAuthClient({
   consumer: {
@@ -44,38 +82,14 @@ const auth = oauth.toAuthHeader(client.sign(
 console.log("Authorization:", auth);
 ```
 
-[doc-OAuthClient]: https://doc.deno.land/https/raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/mod.ts#OAuthClient
-
-### High-level API
-
-An experimental, high-level module is available in the [extra](./extra)
-directory. [Documentation][doc-extra]. Basic usage:
-
-```typescript
-import * as oauth from "https://raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/extra/mod.ts";
-
-const api = new oauth.Api({
-  prefix: "https://api.example.com/v1",
-  consumer: { key: "app-key", secret: "app-secret" },
-  signature: oauth.HMAC_SHA1,
-});
-
-const response = await api.request("POST", "/review", {
-  token: { key: "user-key", secret: "user-secret" },
-  json: { book: "c3c24bab", score: 5 },
-  hashBody: true,
-});
-const result = await response.json();
-```
-
-[doc-extra]: https://doc.deno.land/https/raw.githubusercontent.com/snsinfu/deno-oauth-1.0a/main/extra/mod.ts
+[doc-OAuthClient]: https://jsr.io/@andreivarapayeu/oauth-one-a/doc/~/OAuthClient
 
 ## Test
 
 ```console
-$ git clone https://github.com/snsinfu/deno-oauth-1.0a
-$ cd deno-oauth-1.0a
-$ deno test --allow-net=localhost
+$ git clone https://github.com/andreivarapayeu/deno-oauth-one-a
+$ cd deno-oauth-one-a
+$ deno test --allow-all
 ```
 
 ## License
@@ -87,4 +101,4 @@ and many of the tests are inherited from the original work, a copy of which is
 kept in the ["original" branch][original].
 
 [ddo]: https://github.com/ddo/oauth-1.0a
-[original]: https://github.com/snsinfu/deno-oauth-1.0a/tree/original
+[original]: https://github.com/snsinfu/deno-oauth-one-a/tree/original

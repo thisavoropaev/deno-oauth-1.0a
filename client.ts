@@ -56,7 +56,11 @@ export class OAuthClient {
    *    The result can be converted to an Authorization header (toAuthHeader),
    *    query parameters or form-encoded body (toQueryParams).
    */
-  sign(method: string, url: string, opts?: SignOptions): SignedOAuthParams {
+  async sign(
+    method: string,
+    url: string,
+    opts?: SignOptions,
+  ): Promise<SignedOAuthParams> {
     const params: OAuthParams = {
       oauth_consumer_key: this.consumer.key,
       oauth_signature_method: this.signature.name,
@@ -73,7 +77,7 @@ export class OAuthClient {
       if (!this.signature.hash) {
         throw new Error("hash function is required to sign non-form body");
       }
-      params.oauth_body_hash = this.signature.hash(opts.body as string);
+      params.oauth_body_hash = await this.signature.hash(opts.body as string);
     }
 
     if (!params.oauth_timestamp) {
@@ -93,7 +97,7 @@ export class OAuthClient {
     const baseString = createBaseString(method, baseUrl, baseParams);
     const key = percentEncode(this.consumer.secret) + "&" +
       percentEncode(opts?.token?.secret ?? "");
-    const signature = this.signature.sign(baseString, key);
+    const signature = await this.signature.sign(baseString, key);
 
     return { oauth_signature: signature, ...params };
   }
@@ -114,8 +118,8 @@ export interface Token {
 /** Represents a signature method. */
 export interface SignatureMethod {
   name: string;
-  sign: (message: string, key: string) => string;
-  hash?: (message: string) => string;
+  sign: (message: string, key: string) => Promise<string>;
+  hash?: (message: string) => Promise<string>;
 }
 
 /** Options for the Client.sign() method. */
@@ -300,7 +304,7 @@ export function createBaseParams(
   body?: URLSearchParams,
 ): KV[] {
   const paramsKV = Object.entries(params).map(
-    ([key, value]: [string, any]) => ({ key, value: value.toString() }),
+    ([key, value]: [string, string | number | boolean | undefined]) => ({ key, value: value?.toString() ?? "" }),
   );
 
   const queryKV = !query ? [] : Array.from(query.entries()).map(

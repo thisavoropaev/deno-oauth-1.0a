@@ -37,7 +37,7 @@ Deno.test("createBaseString - reproduces RFC example", () => {
     "ethod%3DHMAC-SHA1%26oauth_timestamp%3D137131201%26oauth_token%3Dkkk" +
     "9d7dh3k39sjv7";
 
-  assertEquals(actual, expected);
+  assertEquals(actual.toString(), expected.toString());
 });
 
 // Taken from ddo/oauth-1.0a.
@@ -75,32 +75,32 @@ Deno.test("createBaseString - reproduces Twitter example", () => {
     "_version%3D1.0%26status%3DHello%2520Ladies%2520%252B%2520Gentlemen%" +
     "252C%2520a%2520signed%2520OAuth%2520request%2521";
 
-  assertEquals(actual, expected);
+  assertEquals(actual.toString(), expected.toString());
 });
 
 // MAIN CLASS ----------------------------------------------------------------
 
-Deno.test("OAuthClient.sign - generates unique nonce on each invocation", () => {
+Deno.test("OAuthClient.sign - generates unique nonce on each invocation", async () => {
   const client = new OAuthClient({
     consumer: { key: "consumer-key", secret: "consumer-secret" },
     signature: PLAINTEXT,
   });
-  const sign1 = client.sign("GET", "https://example.com/");
-  const sign2 = client.sign("GET", "https://example.com/");
+  const sign1 = await client.sign("GET", "https://example.com/");
+  const sign2 = await client.sign("GET", "https://example.com/");
 
   assertNotEquals(sign1.oauth_nonce?.length, 0);
   assertNotEquals(sign2.oauth_nonce?.length, 0);
   assertNotEquals(sign1.oauth_nonce, sign2.oauth_nonce);
 });
 
-Deno.test("OAuthClient.sign - uses current unix timestamp", () => {
+Deno.test("OAuthClient.sign - uses current unix timestamp", async () => {
   const client = new OAuthClient({
     consumer: { key: "consumer-key", secret: "consumer-secret" },
     signature: PLAINTEXT,
   });
 
   const lower = (Date.now() / 1000) | 0;
-  const sign = client.sign("GET", "https://example.com/");
+  const sign = await client.sign("GET", "https://example.com/");
   const upper = (Date.now() / 1000) | 0;
 
   assert(sign.oauth_timestamp);
@@ -108,26 +108,26 @@ Deno.test("OAuthClient.sign - uses current unix timestamp", () => {
   assert(sign.oauth_timestamp <= upper);
 });
 
-Deno.test("OAuthClient.sign - produces correct PLAINTEXT signature", () => {
+Deno.test("OAuthClient.sign - produces correct PLAINTEXT signature", async () => {
   const client = new OAuthClient({
     consumer: { key: "consumer-key", secret: "consumer-secret" },
     signature: PLAINTEXT,
   });
-  const sign = client.sign("GET", "https://example.com/", {
+  const sign = await client.sign("GET", "https://example.com/", {
     token: { key: "request-key", secret: "request-secret" },
   });
 
   assertEquals(sign.oauth_signature, "consumer-secret&request-secret");
 });
 
-Deno.test("OAuthClient.sign - produces correct HMAC-SHA1 signature (RFC)", () => {
+Deno.test("OAuthClient.sign - produces correct HMAC-SHA1 signature (RFC)", async () => {
   // https://tools.ietf.org/html/rfc5849#section-3.1
   // https://www.rfc-editor.org/errata/eid2550
   const client = new OAuthClient({
     consumer: { key: "9djdj82h48djs9d2", secret: "j49sk3j29djd" },
     signature: HMAC_SHA1,
   });
-  const sign = client.sign(
+  const sign = await client.sign(
     "POST",
     "http://example.com/request?b5=%3D%253D&a3=a&c%40=&a2=r%20b",
     {
@@ -141,7 +141,7 @@ Deno.test("OAuthClient.sign - produces correct HMAC-SHA1 signature (RFC)", () =>
 });
 
 // Taken from ddo/oauth-1.0a.
-Deno.test("OAuthClient.sign - produces correct parameters (Twitter)", () => {
+Deno.test("OAuthClient.sign - produces correct parameters (Twitter)", async () => {
   const client = new OAuthClient({
     consumer: {
       key: "xvz1evFS4wEEPTGEFPHBog",
@@ -150,7 +150,7 @@ Deno.test("OAuthClient.sign - produces correct parameters (Twitter)", () => {
     signature: HMAC_SHA1,
   });
 
-  const params = client.sign(
+  const params = await client.sign(
     "POST",
     "https://api.twitter.com/1/statuses/update.json?include_entities=true",
     {
@@ -184,7 +184,7 @@ Deno.test("OAuthClient.sign - produces correct parameters (Twitter)", () => {
 });
 
 // Taken from ddo/oauth-1.0a.
-Deno.test("OAuthClient.sign - produces correct SHA1 body hash", () => {
+Deno.test("OAuthClient.sign - produces correct SHA1 body hash", async () => {
   const client = new OAuthClient({
     consumer: {
       key: "1434affd-4d69-4a1a-bace-cc5c6fe493bc",
@@ -264,7 +264,7 @@ Deno.test("OAuthClient.sign - produces correct SHA1 body hash", () => {
     },
   };
 
-  const params = client.sign(
+  const params = await client.sign(
     "POST",
     "http://canvas.docker/api/lti/accounts/1/tool_proxy",
     {
@@ -292,7 +292,7 @@ Deno.test("OAuthClient.sign - produces correct SHA1 body hash", () => {
 });
 
 // Taken from ddo/oauth-1.0a.
-Deno.test("OAuthClient.sign - computes correct signature for multi-valued body parameters", () => {
+Deno.test("OAuthClient.sign - computes correct signature for multi-valued body parameters", async () => {
   const client = new OAuthClient({
     consumer: {
       key: "batch-dbc2cd8c-6ca8-463b-96e2-6d8683eac6fd",
@@ -301,7 +301,7 @@ Deno.test("OAuthClient.sign - computes correct signature for multi-valued body p
     signature: HMAC_SHA1,
   });
 
-  const actual = client.sign(
+  const actual = await client.sign(
     "PUT",
     "http://localhost:3737/rest/profiles/" +
       "1ea2a42f-e14d-4057-8bcd-3e0b4514a267/properties?alt=json",
@@ -333,7 +333,7 @@ Deno.test("OAuthClient.sign - computes correct signature for multi-valued body p
 });
 
 // Taken from ddo/oauth-1.0a.
-Deno.test("OAuthClient.sign - computes correct signature for multi-valued query parameters", () => {
+Deno.test("OAuthClient.sign - computes correct signature for multi-valued query parameters", async () => {
   const client = new OAuthClient({
     consumer: {
       key: "batch-8f4fd2c6-9fa3-4368-9797-52876d723dd1",
@@ -342,7 +342,7 @@ Deno.test("OAuthClient.sign - computes correct signature for multi-valued query 
     signature: HMAC_SHA1,
   });
 
-  const actual = client.sign(
+  const actual = await client.sign(
     "GET",
     "http://localhost:3737/rest/profiles?" +
       "property=email&" +
@@ -396,7 +396,7 @@ Deno.test("toAuthHeader - produces correct header (Twitter)", () => {
     'oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", ' +
     'oauth_version="1.0"';
 
-  assertEquals(actual, expected);
+  assertEquals(actual.toString(), expected.toString());
 });
 
 Deno.test("toAuthHeader - produces correct header with realm (RFC)", () => {
@@ -422,7 +422,7 @@ Deno.test("toAuthHeader - produces correct header with realm (RFC)", () => {
     'oauth_timestamp="137131201", ' +
     'oauth_token="kkk9d7dh3k39sjv7"';
 
-  assertEquals(actual, expected);
+  assertEquals(actual.toString(), expected.toString());
 });
 
 Deno.test("toAuthHeader - escapes special characters in realm", () => {
@@ -455,11 +455,14 @@ Deno.test("toQueryParams - produces correct query params (RFC)", () => {
     oauth_version: "1.0",
   });
 
-  const expected = new URLSearchParams(
-    "oauth_consumer_key=0685bd9184jfhq22&oauth_token=ad180jjd733klr" +
-      "u7&oauth_signature_method=HMAC-SHA1&oauth_signature=wOJIO9A2W5" +
-      "mFwDgiDvZbTSMK%2FPY%3D&oauth_timestamp=137131200&oauth_nonce=4",
-  );
+  const expected = new URLSearchParams();
+  expected.append("oauth_consumer_key", "0685bd9184jfhq22");
+  expected.append("oauth_nonce", "4572616e48616d6d65724c61686176");
+  expected.append("oauth_signature", "wOJIO9A2W5mFwDgiDvZbTSMK/PY=");
+  expected.append("oauth_signature_method", "HMAC-SHA1");
+  expected.append("oauth_timestamp", "137131200");
+  expected.append("oauth_token", "ad180jjd733klru7");
+  expected.append("oauth_version", "1.0");
 
-  assertEquals(actual, expected);
+  assertEquals(actual.toString(), expected.toString());
 });
