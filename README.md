@@ -2,7 +2,7 @@
 
 ---
 **About this fork**  
-Maintained by [Andrei Varapayeu](https://github.com/andreivarapayeu)
+Maintained by [Andrei Varapayeu](https://github.com/thisavoropaev)
 
 This is not just a fork, but a modernized, maintained, and published version:
 - Uses [JSR](https://jsr.io) packages instead of legacy `https` imports
@@ -10,12 +10,12 @@ This is not just a fork, but a modernized, maintained, and published version:
 - Fully migrated to and tested on **Deno 2.x**
 - Published on [JSR](https://jsr.io/@andreivarapayeu/oauth-one-a)
 
-Feel free to reach out via [GitHub](https://github.com/andreivarapayeu) for any questions or suggestions.
+Feel free to reach out via [GitHub](https://github.com/thisavoropaev) for any questions or suggestions.
 ---
 
 
-[![CI](https://github.com/andreivarapayeu/deno-oauth-one-a/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/andreivarapayeu/deno-oauth-one-a/actions/workflows/test.yml)
-[![Published on JSR](https://jsr.io/badge/@andreivarapayeu/oauth-one-a)](https://jsr.io/@andreivarapayeu/oauth-one-a)
+[![CI][test-badge]][test-url]
+[![JSR][jsr-badge]][jsr-url]
 
 OAuth 1.0a Request Authorization module for Deno with JSR and std packages
 support. This is an updated fork with modern Deno ecosystem integration.
@@ -25,8 +25,8 @@ support. This is an updated fork with modern Deno ecosystem integration.
 - [Release process](#release-process)
 - [License](#license)
 
-[test-badge]: https://github.com/andreivarapayeu/deno-oauth-one-a/workflows/test/badge.svg
-[test-url]: https://github.com/andreivarapayeu/deno-oauth-one-a/actions?query=workflow%3Atest
+[test-badge]: https://github.com/thisavoropaev/deno-oauth-one-a/actions/workflows/test.yml/badge.svg
+[test-url]: https://github.com/thisavoropaev/deno-oauth-one-a/actions/workflows/test.yml
 [jsr-badge]: https://jsr.io/badges/@andreivarapayeu/oauth-one-a
 [jsr-url]: https://jsr.io/@andreivarapayeu/oauth-one-a
 
